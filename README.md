@@ -3,7 +3,7 @@
 A small, dependency-free web tool that gives non-Chinese speakers a Chinese name
 that sounds natural, plus the reasoning behind each choice.
 
-Live: https://chinesename.l.cd/ (deployed on Vercel; free subdomain provided by DNSHE)
+Live: https://chinesename.cc.cd/ (deployed on Vercel; free subdomain provided by DNSHE)
 
 ## What it does
 
@@ -122,7 +122,7 @@ Static site, no build step — any static host works. Vercel settings:
 
 ### Why Vercel and not Cloudflare
 
-The site was first deployed to a Cloudflare Worker, but `chinesename.l.cd` cannot be
+The site was first deployed to a Cloudflare Worker, but `chinesename.cc.cd` cannot be
 attached to it. Cloudflare only accepts a bare root domain as a zone for non-Enterprise
 accounts, so a delegated subdomain cannot be added, and a Worker/Pages custom domain
 requires the hostname to live in a zone in your account. Vercel allows binding a

@@ -16,7 +16,7 @@ HAN = "C:/Windows/Fonts/msyh.ttc"
 MONO = "C:/Windows/Fonts/consola.ttf"
 
 # Shown in the card footer. Change this once the live domain is settled.
-SITE_URL = "chinesename.l.cd"
+SITE_URL = "chinesename.cc.cd"
 
 
 def font(path, size, index=0):

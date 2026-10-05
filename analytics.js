@@ -20,7 +20,7 @@
 window.HANZI = (function () {
   var config = {
     // Used for share links and the copied share text.
-    siteUrl: 'https://chinesename.l.cd',
+    siteUrl: 'https://chinesename.cc.cd',
 
     // Cloudflare dashboard -> Analytics & Logs -> Web Analytics.
     // Paste the beacon token. Leave empty if you enabled it at the zone level,
