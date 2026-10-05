@@ -155,12 +155,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (button.dataset.action === 'copy') {
       const ok = await copyText(`${fullText(item)}\n\n${siteUrl}`);
       flash(button, ok ? 'Copied ✓' : 'Press Ctrl+C');
-      track('copy_name', { name: item.characters, ok: ok, generation: generation });
+      track('copy_name', { chinese_name: item.characters, ok: ok, generation: generation });
       return;
     }
     const outcome = await shareName(item);
     flash(button, outcome === 'copied' ? 'Copied ✓' : outcome === 'cancelled' ? 'Share' : 'Shared ✓');
-    track('share_name', { name: item.characters, outcome: outcome, generation: generation });
+    track('share_name', { chinese_name: item.characters, outcome: outcome, generation: generation });
   });
 
   // ---- hero character animation ------------------------------------------

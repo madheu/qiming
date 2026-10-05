@@ -31,31 +31,28 @@ on a server.
 
 ## Analytics
 
-Two optional layers, configured at the top of `analytics.js`. Leave an id empty
-and that layer simply is not loaded — the page works fine with none configured.
+Optional, configured at the top of `analytics.js`. Leave the id empty and nothing
+loads — the page works fine with no analytics at all.
 
-### 1. Traffic — Cloudflare Web Analytics
+### Google Analytics 4
 
-Visits, referrers, countries, devices, Core Web Vitals. Free, cookieless, no
-consent banner needed.
+GA4 covers both layers we care about, so there is only one service to manage:
+traffic (visits, referrers, countries, devices) plus the custom funnel events.
 
-- **Custom domain on Cloudflare (proxied):** dashboard → *Analytics & Logs* →
-  *Web Analytics* → add the site, and leave `cloudflareToken` empty. Cloudflare
-  injects the beacon automatically.
-- **workers.dev / any other host:** add the site in the same dashboard screen to
-  get a **beacon token**, then paste it into `cloudflareToken`.
+1. GA4 → **Admin → Data streams → Web** → add `https://chinesename.cc.cd`
+2. Copy the **Measurement ID** (`G-XXXXXXXXXX`)
+3. Paste it into `ga4MeasurementId` in `analytics.js`
 
-### 2. Funnel events — Umami
+Then in GA4, mark `generate` (and ideally `copy_name`) as **key events** so they
+appear under conversions, and build a funnel in **Explore**.
 
-Cloudflare Web Analytics is pageview-only, so it cannot answer "did anyone
-actually generate a name?". That needs custom events.
-
-Create a free account at https://cloud.umami.is → *Add website* → copy the
-website id into `umamiWebsiteId`. Cookies are not used, so no consent banner.
+⚠️ GA4 sets cookies. If you get EU/UK traffic you need a consent banner before
+the tag loads; see the note below.
 
 ### Event names
 
-Keep these names stable — renaming one breaks the funnel.
+Keep these names stable — renaming one breaks the funnel, and GA4 cannot
+backfill history.
 
 | Event | Fired when | Tells you |
 |---|---|---|
@@ -68,12 +65,12 @@ Keep these names stable — renaming one breaks the funnel.
 | `start_over` | "Start over" clicked | restart behaviour |
 
 `generate` carries `has_name`, `styles`, `gender`, `pronunciation` and
-`generation` as properties, so the funnel can be sliced by the actual choices.
+`generation`; copy/share carry `chinese_name`.
 
 ### Reading the funnel
 
 ```
-visits                 -> Cloudflare Web Analytics
+visits                 -> GA4 traffic reports
   form_start           -> intent
     generate           -> activation   <-- the number that matters most
       copy_name        -> real interest
@@ -81,11 +78,18 @@ visits                 -> Cloudflare Web Analytics
   regenerate           -> the names were not good enough
 ```
 
-If `generate` / visits is low, the landing copy or the form is the problem. If
+If `generate / visits` is low, the landing copy or the form is the problem. If
 `generate` is healthy but `copy_name` is near zero, the *names* are the problem —
 which is the whole product.
 
-### Verifying before any provider is wired up
+### Cookies / consent
+
+GA4 is cookie-based and needs consent in the EU/UK. Options when that matters:
+gate the tag behind a consent banner, enable GA4's consent mode, or switch to a
+cookieless tool. Until EU traffic is real, the simplest safe move is to add a
+banner before promoting the site in Europe.
+
+### Verifying before GA4 is wired up
 
 Events are also kept in memory. Open the console on the live page, use the tool,
 then run:
@@ -128,9 +132,8 @@ accounts, so a delegated subdomain cannot be added, and a Worker/Pages custom do
 requires the hostname to live in a zone in your account. Vercel allows binding a
 subdomain you only hold a CNAME for, which is what DNSHE gives you.
 
-Analytics is unaffected by the move — the Cloudflare Web Analytics beacon is just a
-script tag plus a token and runs on any host. The only difference is that Cloudflare no
-longer injects it automatically, so `cloudflareToken` in `analytics.js` must be filled in.
+Analytics is independent of the host — GA4 is loaded by `analytics.js` as a plain
+script tag, so it works the same on Vercel, Cloudflare, or anywhere else.
 
 ## Domains
 

@@ -1,14 +1,15 @@
 /**
  * Analytics + shared site config for Hànzi.
  *
- * Two independent, optional layers:
- *   1. Traffic  (visits, referrers, countries, Core Web Vitals) -> Cloudflare Web Analytics
- *   2. Funnel   (generate / regenerate / copy / share)          -> Umami
+ * One optional provider: Google Analytics 4. It covers both layers we care
+ * about, so there is no second service to keep in sync.
+ *   1. Traffic — visits, referrers, countries, devices (GA4 collects by default)
+ *   2. Funnel  — the custom events below
  *
- * Leave an id empty and that layer is simply not loaded. The page works
- * normally with no analytics configured at all.
+ * Leave ga4MeasurementId empty and nothing loads; the page works fine.
  *
- * Event names are stable on purpose — renaming one breaks the funnel.
+ * Event names are stable on purpose — renaming one breaks the funnel, and GA4
+ * cannot backfill history.
  *   generate      clicked "Generate my Chinese name"   (activation)
  *   regenerate    clicked "Generate 3 more"            (engagement)
  *   copy_name     copied one of the names              (strong interest)
@@ -16,41 +17,36 @@
  *   start_over    clicked "Start over"
  *   style_pick    picked/cleared a style chip
  *   form_start    first keystroke in the name field
+ *
+ * Mark `generate` (and ideally `copy_name`) as key events in GA4 so they show
+ * up under conversions.
  */
 window.HANZI = (function () {
   var config = {
     // Used for share links and the copied share text.
     siteUrl: 'https://chinesename.cc.cd',
 
-    // Cloudflare dashboard -> Analytics & Logs -> Web Analytics.
-    // Paste the beacon token. Leave empty if you enabled it at the zone level,
-    // which injects the beacon automatically and needs no code here.
-    cloudflareToken: '',
-
-    // https://cloud.umami.is -> Add website -> copy the website id.
-    umamiWebsiteId: '',
+    // GA4 -> Admin -> Data streams -> Web -> your stream -> Measurement ID.
+    // Looks like 'G-XXXXXXXXXX'.
+    ga4MeasurementId: '',
   };
 
-  // ---- providers ---------------------------------------------------------
-  if (config.cloudflareToken) {
-    var cf = document.createElement('script');
-    cf.defer = true;
-    cf.src = 'https://static.cloudflareinsights.com/beacon.min.js';
-    cf.setAttribute('data-cf-beacon', JSON.stringify({ token: config.cloudflareToken }));
-    document.head.appendChild(cf);
+  if (config.ga4MeasurementId) {
+    // gtag must exist before the library loads so early events are queued
+    // in dataLayer instead of being dropped.
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', config.ga4MeasurementId);
+
+    var ga = document.createElement('script');
+    ga.async = true;
+    ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(config.ga4MeasurementId);
+    document.head.appendChild(ga);
   }
 
-  if (config.umamiWebsiteId) {
-    var um = document.createElement('script');
-    um.defer = true;
-    um.src = 'https://cloud.umami.is/script.js';
-    um.setAttribute('data-website-id', config.umamiWebsiteId);
-    document.head.appendChild(um);
-  }
-
-  // ---- event tracking -----------------------------------------------------
-  // Kept locally as well so the funnel can be verified before any provider
-  // is wired up: open the console, use the page, run HANZI.events.
+  // Kept locally as well so the funnel can be verified before any provider is
+  // wired up: open the console, use the page, run HANZI.events.
   var log = [];
 
   function track(event, data) {
@@ -60,8 +56,7 @@ window.HANZI = (function () {
     try { localStorage.setItem('hanzi_events', JSON.stringify(log)); } catch (e) { /* private mode */ }
 
     try {
-      if (window.umami && typeof window.umami.track === 'function') window.umami.track(event, props);
-      if (typeof window.plausible === 'function') window.plausible(event, { props: props });
+      if (typeof window.gtag === 'function') window.gtag('event', event, props);
     } catch (e) { /* never let analytics break the page */ }
   }
 
