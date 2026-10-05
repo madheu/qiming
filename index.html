@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Find a Chinese name that feels like yours — natural, meaningful, and easy to say." />
+    <title>Hànzi — Find your Chinese name</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Hanzi home">
+        <span class="brand-mark">漢</span>
+        <span>Hànzi</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#how">How it works</a>
+        <a href="#why">Why Hànzi</a>
+      </nav>
+      <div class="header-note"><span class="dot"></span> Made for the curious</div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span>01</span> Your name, in another world</p>
+          <h1 id="hero-title">Find a Chinese name that <em>feels</em> like you.</h1>
+          <p class="hero-lede">Not a translation. A name chosen for its sound, meaning, and the person you want to become.</p>
+          <div class="hero-meta"><span class="scribble">✦</span> Thoughtful by design&nbsp;&nbsp;·&nbsp;&nbsp;Natural by culture</div>
+        </div>
+        <div class="hero-aside reveal delay-1" aria-hidden="true">
+          <div class="character-stage">
+            <div class="character-orbit orbit-one">安</div>
+            <div class="character-orbit orbit-two">知</div>
+            <div class="character-orbit orbit-three">明</div>
+            <div class="flip-character" id="flip-character">名</div>
+            <div class="flip-caption">a name<br /><span>in motion</span></div>
+          </div>
+          <div class="vertical-note">中文姓名顾问<br />CHINESE NAME CONSULTANT</div>
+        </div>
+      </section>
+
+      <section class="generator-section" id="generator" aria-labelledby="generator-title">
+        <div class="section-intro reveal">
+          <p class="eyebrow"><span>02</span> Begin with a little about you</p>
+          <h2 id="generator-title">Let’s make it <span>personal.</span></h2>
+          <p>Give us a starting point. We’ll take care of the cultural nuance.</p>
+        </div>
+        <form class="generator-card reveal delay-1" id="generator-form">
+          <div class="form-topline"><span>YOUR DETAILS</span><span>1 / 2</span></div>
+          <label class="field-label" for="name">What should we call you?</label>
+          <div class="name-input-wrap"><input id="name" name="name" type="text" maxlength="40" placeholder="e.g. Michael" autocomplete="given-name" required /><span class="input-arrow">↗</span></div>
+          <p class="helper">Your first name is enough. No sign-up, no storing.</p>
+
+          <fieldset>
+            <legend>What energy should it carry?</legend>
+            <div class="chip-grid" id="style-chips">
+              <button type="button" class="chip" data-style="Modern" aria-pressed="false">Modern</button>
+              <button type="button" class="chip" data-style="Elegant" aria-pressed="false">Elegant</button>
+              <button type="button" class="chip" data-style="Calm" aria-pressed="false">Calm</button>
+              <button type="button" class="chip" data-style="Strong" aria-pressed="false">Strong</button>
+              <button type="button" class="chip" data-style="Playful" aria-pressed="false">Playful</button>
+              <button type="button" class="chip" data-style="Poetic" aria-pressed="false">Poetic</button>
+              <button type="button" class="chip" data-style="Warm" aria-pressed="false">Warm</button>
+              <button type="button" class="chip" data-style="Bright" aria-pressed="false">Bright</button>
+              <button type="button" class="chip" data-style="Thoughtful" aria-pressed="false">Thoughtful</button>
+              <button type="button" class="chip" data-style="Unique" aria-pressed="false">Unique</button>
+              <button type="button" class="chip" data-style="Traditional" aria-pressed="false">Traditional</button>
+              <button type="button" class="chip" data-style="Natural" aria-pressed="false">Natural</button>
+            </div>
+          </fieldset>
+
+          <div class="form-row">
+            <div>
+              <label class="field-label" for="gender">A little context <span>(optional)</span></label>
+              <select id="gender" name="gender"><option value="">Prefer not to say</option><option value="female">She / her</option><option value="male">He / him</option><option value="neutral">They / them</option></select>
+            </div>
+            <div>
+              <label class="field-label" for="pronunciation">Keep my sound?</label>
+              <select id="pronunciation" name="pronunciation"><option value="preferred">As much as natural</option><option value="not-important">Meaning first</option><option value="not-important">Not important</option></select>
+            </div>
+          </div>
+          <button class="primary-button" type="submit"><span>Generate my Chinese name</span><span>↗</span></button>
+          <p class="form-footnote"><span class="spark">✦</span> You’ll get 3 names, with the story behind each.</p>
+        </form>
+      </section>
+
+      <section class="results-section is-hidden" id="results" aria-labelledby="results-title">
+        <div class="results-heading reveal"><div><p class="eyebrow"><span>03</span> A few possibilities</p><h2 id="results-title">Meet your <span>Chinese names.</span></h2></div><button class="text-button" id="reset-button">Start over&nbsp; ↗</button></div>
+        <div class="name-grid" id="name-grid"></div>
+        <div class="results-footer"><p>Not quite right yet?</p><button class="secondary-button" id="more-button">Generate 3 more <span>↗</span></button></div>
+      </section>
+
+      <section class="manifesto" id="why"><div class="manifesto-line"></div><p class="eyebrow"><span>04</span> The Hànzi difference</p><blockquote>“Your Chinese name should sound like a name, not a translation.”</blockquote><p class="manifesto-copy">We balance pronunciation with the quiet art of Chinese naming — choosing characters people actually use, meanings that have room to breathe, and a rhythm that belongs together.</p></section>
+
+      <section class="how-section" id="how"><div class="how-heading"><p class="eyebrow"><span>05</span> A small ritual</p><h2>Three steps to a name<br /><span>that stays with you.</span></h2></div><div class="steps"><article><div class="step-number">01</div><h3>You bring the spark</h3><p>Your name, a little context, and the feeling you want to carry.</p></article><article><div class="step-number">02</div><h3>We find the thread</h3><p>Sound, meaning, tone, and the patterns that make a name feel real.</p></article><article><div class="step-number">03</div><h3>You meet the right one</h3><p>Three considered possibilities, each with its own point of view.</p></article></div></section>
+    </main>
+    <footer class="site-footer"><div class="brand"><span class="brand-mark">漢</span><span>Hànzi</span></div><p>Made with care for names not yet discovered.</p><span class="footer-year">© 2024</span></footer>
+    <script src="script.js"></script>
+  </body>
+</html>
