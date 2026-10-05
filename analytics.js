@@ -28,7 +28,7 @@ window.HANZI = (function () {
 
     // GA4 -> Admin -> Data streams -> Web -> your stream -> Measurement ID.
     // Looks like 'G-XXXXXXXXXX'.
-    ga4MeasurementId: '',
+    ga4MeasurementId: 'G-ZN6756EBP0',
   };
 
   if (config.ga4MeasurementId) {
