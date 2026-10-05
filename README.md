@@ -3,7 +3,7 @@
 A small, dependency-free web tool that gives non-Chinese speakers a Chinese name
 that sounds natural, plus the reasoning behind each choice.
 
-Live: https://qiming.abc15531888397.workers.dev/
+Live: https://chinesename.l.cd/ (deployed on Vercel; free subdomain provided by DNSHE)
 
 ## What it does
 
@@ -114,10 +114,23 @@ event still fires.
 
 ## Deploying
 
-Static site — deploy as-is. There is no build step.
+Static site, no build step — any static host works. Vercel settings:
 
+- Framework preset: `Other`
 - Build command: *(leave empty)*
-- Build output directory: `/`
+- Output directory: *(leave empty, serves the repo root)*
+
+### Why Vercel and not Cloudflare
+
+The site was first deployed to a Cloudflare Worker, but `chinesename.l.cd` cannot be
+attached to it. Cloudflare only accepts a bare root domain as a zone for non-Enterprise
+accounts, so a delegated subdomain cannot be added, and a Worker/Pages custom domain
+requires the hostname to live in a zone in your account. Vercel allows binding a
+subdomain you only hold a CNAME for, which is what DNSHE gives you.
+
+Analytics is unaffected by the move — the Cloudflare Web Analytics beacon is just a
+script tag plus a token and runs on any host. The only difference is that Cloudflare no
+longer injects it automatically, so `cloudflareToken` in `analytics.js` must be filled in.
 
 ## Domains
 
