@@ -1,0 +1,50 @@
+'use strict';
+const assert = require('node:assert/strict');
+global.HANZI_NEW_YEARS = require('../zodiac-new-years.json');
+const { calculateZodiac } = require('../zodiac.js');
+assert.equal(calculateZodiac(2026).animal.id, 'horse');
+assert.equal(calculateZodiac(2026).confirmed, false);
+assert.equal(calculateZodiac(2026, 2, 16).animal.id, 'snake');
+assert.equal(calculateZodiac(2026, 2, 17).animal.id, 'horse');
+assert.equal(calculateZodiac(2027, 2, 5).animal.id, 'horse');
+assert.equal(calculateZodiac(2027, 2, 6).animal.id, 'goat');
+assert.equal(calculateZodiac(2000, 1, 1).animal.id, 'rabbit');
+assert.equal(calculateZodiac(2024, 2, 29).animal.id, 'dragon');
+assert.equal(calculateZodiac(1900, 1, 1).animal.id, 'pig');
+assert.equal(calculateZodiac(2100, 12, 31).animal.id, 'monkey');
+for (const args of [[1899], [2101], [2026.5], [''], ['2026x'], [2026, 2], [2026, '', 4], [2026, 2, 29], [2026, 4, 31], [2026, 13, 1], [2026, 1, 0]]) {
+  assert.throws(() => calculateZodiac(...args), RangeError, `Reject ${args}`);
+}
+const fs = require('node:fs');
+const source = JSON.parse(fs.readFileSync(require('node:path').join(__dirname, '..', 'zodiac-new-years.json'), 'utf8'));
+assert.equal(Object.keys(source).length, 201);
+assert.deepEqual(Object.keys(source).map(Number), [...Array(201)].map((_, i) => i + 1900));
+const vm = require('node:vm');
+const browser = { window: {} };
+vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname, '..', 'zodiac-new-years.js'), 'utf8'), browser);
+assert.equal(JSON.stringify(browser.window.HANZI_NEW_YEARS), JSON.stringify(source));
+for (let year = 1900; year <= 2100; year++) {
+  const [month, day] = source[year].split('-').map(Number);
+  assert.equal(calculateZodiac(year, month, day).zodiacYear, year);
+  const previous = new Date(Date.UTC(year, month - 1, day - 1));
+  assert.equal(calculateZodiac(year, previous.getUTCMonth() + 1, previous.getUTCDate()).zodiacYear, year - 1);
+}
+const savedData = global.HANZI_NEW_YEARS;
+delete global.HANZI_NEW_YEARS;
+assert.throws(() => calculateZodiac(2026, 2, 17), /calendar/i);
+assert.equal(calculateZodiac(2026).animal.id, 'horse');
+global.HANZI_NEW_YEARS = savedData;
+const elements = { 'birth-year': { value: '2026' }, 'birth-month': { value: '2' }, 'birth-day': { value: '17' }, 'zodiac-result': {} };
+let submit;
+elements['zodiac-form'] = { addEventListener(type, handler) { if (type === 'submit') submit = handler; } };
+const tracked = [];
+const page = { window: { HANZI_NEW_YEARS: source, HanziCulture: { track: (...args) => tracked.push(args) }, document: { addEventListener(type, handler) { handler(); }, getElementById(id) { return elements[id]; } } } };
+vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname, '..', 'zodiac.js'), 'utf8'), page);
+submit({ preventDefault() {} });
+assert.match(elements['zodiac-result'].innerHTML, /#horse/);
+assert.equal(tracked[0][0], 'zodiac_calculate');
+assert.equal(Object.keys(tracked[0][1]).sort().join(','), 'confirmed,sign');
+elements['birth-day'].value = '29';
+submit({ preventDefault() {} });
+assert.match(elements['zodiac-result'].textContent, /valid birthday/);
+console.log('PASS: 201 new-year boundaries, browser data parity, date validation, form flow and birthday privacy');

@@ -14,20 +14,39 @@ Live: https://chinesename.cc.cd/ (deployed on Vercel; free subdomain provided by
   a "why this name?" explanation, and Copy / Share buttons
 - Generate more, or start over
 
-Everything runs client-side. No API key, no backend, no accounts, nothing stored
-on a server.
+Name and zodiac generation run client-side. No API key, naming backend, or
+accounts are required. The homepage uses visit and interaction analytics (see below).
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| `index.html` | Markup, form, results, social meta tags |
-| `styles.css` | All styling and animation |
+| `index.html` | Markup, form, results, SEO/social metadata, examples, and FAQ |
+| `styles.css` | Core styling and animation |
+| `culture.css` | Responsive styling for SEO culture pages |
 | `script.js` | Generator logic, seeded selection, copy/share, funnel events |
 | `analytics.js` | Site URL config + event tracking (see below) |
 | `og-image.png` | 1200×630 social share card |
 | `tools/make_og_image.py` | Regenerates `og-image.png` (needs Pillow) |
 | `tools/check_generator.js` | Runnable check for the generator + funnel events |
+
+## Culture pages and SEO
+
+- `/chinese-zodiac/`: birth-year estimate with optional Gregorian month/day confirmation (1900–2100), using Lunar New Year rather than January 1.
+- `/chinese-zodiac/year-of-the-horse-2026/`: twelve animal reflections, explicitly distinguished from predictions and traditional calendar facts.
+- `zodiac-new-years.json` is the source data; `zodiac-new-years.js` is the browser copy. See `calendar-data.md` for provenance. Keep both synchronized; the check compares both copies and validates all 201 new-year boundaries plus anchor dates.
+- `culture.css` shares the existing design tokens. New pages do not load GA or other analytics providers. `HanziCulture.events` records local, in-memory interactions with the sign and confirmation status only, never the birthday; homepage clicks use the already-loaded provider.
+- Homepage includes static examples and FAQ. All three pages have canonical URLs and JSON-LD and are listed in `sitemap.xml`.
+
+Run checks:
+
+```bash
+node tools/check_generator.js
+node tools/check_zodiac.js
+python tools/check_seo.py
+```
+
+These are local changes, not an automatic deployment. After deploying, check all three public URLs and submit the updated sitemap through Search Console. Fortune sticks are intentionally deferred to phase two.
 
 ## Analytics
 

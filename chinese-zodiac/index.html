@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chinese Zodiac Calculator &amp; 12 Animal Signs — Hànzi</title>
+  <meta name="description" content="Find your Chinese zodiac animal by birth year, check the Lunar New Year boundary, and explore all 12 signs with Chinese characters, pinyin, and traditional symbolism." />
+  <link rel="canonical" href="https://chinesename.cc.cd/chinese-zodiac/" />
+  <meta name="theme-color" content="#315347" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Hànzi" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://chinesename.cc.cd/chinese-zodiac/" />
+  <meta property="og:title" content="Chinese zodiac: find your animal, understand its story" />
+  <meta property="og:description" content="A birth-year calculator and a thoughtful introduction to the twelve animals, their Chinese names, and the Lunar New Year boundary." />
+  <meta property="og:image" content="https://chinesename.cc.cd/og-image.png" />
+  <meta property="og:image:alt" content="Hànzi Chinese name guide, with the character 名 on a paper-colored card" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Chinese Zodiac Calculator &amp; 12 Animal Signs — Hànzi" />
+  <meta name="twitter:description" content="Find your animal and explore the culture behind the twelve Chinese zodiac signs." />
+  <meta name="twitter:image" content="https://chinesename.cc.cd/og-image.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f4f0e7'/%3E%3Ctext x='32' y='46' font-size='44' text-anchor='middle' fill='%23d56c4e' font-family='serif'%3E名%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/culture.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Chinese Zodiac Calculator & 12 Animal Signs","description":"A Chinese zodiac birth-year calculator and introduction to twelve animal signs, Chinese names, and Lunar New Year boundaries.","url":"https://chinesename.cc.cd/chinese-zodiac/","inLanguage":"en","isPartOf":{"@type":"WebSite","name":"Hànzi","url":"https://chinesename.cc.cd/"}}</script>
+  <script src="/zodiac-new-years.js" defer></script>
+  <script src="/zodiac.js" defer></script>
+  <script src="/culture-events.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to main content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Hànzi home"><span class="brand-mark" aria-hidden="true">漢</span><span>Hànzi</span></a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="/chinese-zodiac/" aria-current="page" data-culture-link>Chinese zodiac</a>
+      <a href="/chinese-zodiac/year-of-the-horse-2026/" data-culture-link>2026 Horse year</a>
+      <a href="/#generator" data-culture-link>Find your name ↗</a>
+    </nav>
+  </header>
+  <main class="culture-main" id="top">
+    <section class="culture-hero" aria-labelledby="page-title">
+      <p class="culture-kicker">A Hànzi culture guide · 生肖 shēngxiào</p>
+      <h1 id="page-title">Find your Chinese<br /><em>zodiac animal.</em></h1>
+      <p>The Chinese zodiac is a repeating twelve-year cycle, with an animal for each year. Find yours, learn its Chinese name, and meet the stories behind the symbol.</p>
+      <p class="culture-note">Culture, not a personality test. These associations are a way into a tradition—not a definition of who you are.</p>
+    </section>
+
+    <section class="culture-section" aria-labelledby="calculator-title">
+      <p class="culture-kicker">01 / Find your animal</p>
+      <h2 id="calculator-title">Begin with your birth year.</h2>
+      <div class="culture-grid">
+        <form class="culture-form" id="zodiac-form" aria-describedby="birth-help">
+          <label for="birth-year">Birth year <span>(required)</span></label>
+          <input id="birth-year" type="number" min="1900" max="2100" step="1" placeholder="e.g. 1990" required aria-describedby="birth-help" />
+          <p id="birth-help">Use your Gregorian birth year, from 1900 to 2100. A year alone gives a provisional sign: if you were born in January or February, confirm your full date below.</p>
+          <fieldset>
+            <legend>Confirm with your birthday <span>(optional)</span></legend>
+            <div class="culture-grid">
+              <div><label for="birth-month">Birth month</label><input id="birth-month" type="number" min="1" max="12" step="1" placeholder="1–12" aria-describedby="date-help" /></div>
+              <div><label for="birth-day">Birth day</label><input id="birth-day" type="number" min="1" max="31" step="1" placeholder="1–31" aria-describedby="date-help" /></div>
+            </div>
+            <p id="date-help">Leave both fields blank, or provide both month and day. Enter your Gregorian calendar date. Dates before that year's Lunar New Year belong to the previous animal year.</p>
+          </fieldset>
+          <button class="primary-button" type="submit"><span>Find my zodiac animal</span><span aria-hidden="true">↗</span></button>
+          <noscript><p class="culture-note">The calculator needs JavaScript. You can still use the animal table and boundary explanation below.</p></noscript>
+        </form>
+        <section class="culture-result" id="zodiac-result" aria-live="polite" aria-atomic="true" aria-label="Your zodiac result">
+          <p class="culture-kicker">Your animal, with context</p>
+          <h3 id="result-title">A small starting point.</h3>
+          <p>Enter your birth year and choose “Find my zodiac animal” to see your sign, its Chinese character, and pinyin pronunciation.</p>
+          <p>Born in January or February? Add both your birth month and day so the Lunar New Year boundary can be checked.</p>
+        </section>
+      </div>
+    </section>
+
+    <section class="culture-section" aria-labelledby="animals-title">
+      <p class="culture-kicker">02 / The twelve-year circle</p>
+      <h2 id="animals-title">Meet the Chinese zodiac animals.</h2>
+      <p>The order stays the same: Rat, Ox, Tiger, Rabbit, Dragon, Snake, Horse, Goat, Monkey, Rooster, Dog, and Pig. The examples below identify the animal year that begins during each Gregorian year; they do not cover every birthday within that year.</p>
+      <div class="culture-table-wrap" role="region" aria-label="Twelve Chinese zodiac animals and example years" tabindex="0">
+        <table class="culture-table">
+          <caption>The twelve signs: Chinese names, example years, and common traditional associations</caption>
+          <thead><tr><th scope="col">Animal</th><th scope="col">Chinese</th><th scope="col">Pinyin</th><th scope="col">Example years</th><th scope="col">Traditional symbolism</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Rat</th><td lang="zh-Hans">鼠</td><td>shǔ</td><td>1984, 1996, 2008, 2020, 2032</td><td>Resourcefulness and quick thinking</td></tr>
+            <tr><th scope="row">Ox</th><td lang="zh-Hans">牛</td><td>niú</td><td>1985, 1997, 2009, 2021, 2033</td><td>Diligence and steadiness</td></tr>
+            <tr><th scope="row">Tiger</th><td lang="zh-Hans">虎</td><td>hǔ</td><td>1986, 1998, 2010, 2022, 2034</td><td>Courage and strength</td></tr>
+            <tr><th scope="row">Rabbit</th><td lang="zh-Hans">兔</td><td>tù</td><td>1987, 1999, 2011, 2023, 2035</td><td>Gentleness and attentiveness</td></tr>
+            <tr><th scope="row">Dragon</th><td lang="zh-Hans">龙</td><td>lóng</td><td>1988, 2000, 2012, 2024, 2036</td><td>Vitality and auspicious power</td></tr>
+            <tr><th scope="row">Snake</th><td lang="zh-Hans">蛇</td><td>shé</td><td>1989, 2001, 2013, 2025, 2037</td><td>Wisdom and deliberation</td></tr>
+            <tr><th scope="row">Horse</th><td lang="zh-Hans">马</td><td>mǎ</td><td>1990, 2002, 2014, 2026, 2038</td><td>Energy and independence</td></tr>
+            <tr><th scope="row">Goat / Sheep</th><td lang="zh-Hans">羊</td><td>yáng</td><td>1991, 2003, 2015, 2027, 2039</td><td>Kindness and harmony</td></tr>
+            <tr><th scope="row">Monkey</th><td lang="zh-Hans">猴</td><td>hóu</td><td>1992, 2004, 2016, 2028, 2040</td><td>Ingenuity and curiosity</td></tr>
+            <tr><th scope="row">Rooster</th><td lang="zh-Hans">鸡</td><td>jī</td><td>1993, 2005, 2017, 2029, 2041</td><td>Alertness and conscientiousness</td></tr>
+            <tr><th scope="row">Dog</th><td lang="zh-Hans">狗</td><td>gǒu</td><td>1994, 2006, 2018, 2030, 2042</td><td>Loyalty and sincerity</td></tr>
+            <tr><th scope="row">Pig</th><td lang="zh-Hans">猪</td><td>zhū</td><td>1995, 2007, 2019, 2031, 2043</td><td>Generosity and abundance</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="culture-note">These are broad, familiar associations, not universal beliefs or measured personality traits. Interpretations vary across families, regions, and sources. 羊 (yáng) can be rendered “goat,” “sheep,” or “ram”; 鸡 (jī) literally means “chicken” and is usually called “Rooster” in English zodiac lists.</p>
+    </section>
+
+    <section class="culture-section" id="year-boundary" aria-labelledby="boundary-title">
+      <p class="culture-kicker">03 / The detail that matters</p>
+      <h2 id="boundary-title">The year does not begin on January 1.</h2>
+      <p>For this guide, an animal year starts on Chinese New Year—the first day of the first month of the Chinese lunisolar calendar. This date changes each Gregorian year, usually falling in January or February. A person born before that date belongs to the preceding animal year.</p>
+      <p>For example, the Horse year begins on <time datetime="2026-02-17">February 17, 2026</time>. February 16 is still in the Snake year. The Horse year continues through <time datetime="2027-02-05">February 5, 2027</time>; the Goat year begins on February 6.</p>
+      <p><strong>How to confirm:</strong> look up your birth year in the Hong Kong Observatory's Gregorian–Lunar calendar conversion tables, find the first day of the first lunar month, and compare your birthday with that date. This calculator uses that Lunar New Year convention, not the Start of Spring (Lìchūn) boundary used by some astrological systems.</p>
+      <a href="https://www.hko.gov.hk/en/gts/time/conversion.htm">Hong Kong Observatory calendar conversion tables ↗</a>
+    </section>
+
+    <section class="culture-section" aria-labelledby="horse-feature-title">
+      <article class="culture-card">
+        <p class="culture-kicker">The 2026 notebook · 马 mǎ</p>
+        <h2 id="horse-feature-title">Make room for forward motion.</h2>
+        <p>Explore the Year of the Horse, its exact dates, and twelve practical reflections inspired by the animal symbols. No promised luck, no fixed destiny.</p>
+        <a class="secondary-button" href="/chinese-zodiac/year-of-the-horse-2026/" data-culture-link>Read the 2026 Horse guide <span aria-hidden="true">↗</span></a>
+      </article>
+    </section>
+
+    <section class="culture-section" aria-labelledby="faq-title">
+      <p class="culture-kicker">04 / A few good questions</p>
+      <h2 id="faq-title">Chinese zodiac FAQ</h2>
+      <details><summary>How do I find my Chinese zodiac sign?</summary><p>Start with your birth year in the calculator or table. For an exact Lunar New Year boundary check, provide your month and day too—especially if your birthday is in January or February.</p></details>
+      <details><summary>Is the zodiac the same as Western astrology?</summary><p>No. This animal cycle is based on years in the Chinese calendar, rather than Western astrology's twelve sun signs. More elaborate Chinese systems also consider months, days, hours, and the five phases; this page is an introduction to the animal year only.</p></details>
+      <details><summary>Does my animal decide my personality or future?</summary><p>No. Animal symbolism is cultural material, not scientific evidence about personality or a reliable forecast. Use it as a conversation starter, not a basis for health, financial, or relationship decisions.</p></details>
+      <details><summary>Should my Chinese name match my zodiac animal?</summary><p>It does not have to. Some naming traditions consider birth information, but a natural Chinese name can be chosen for its sound, meaning, and personal resonance without referencing your zodiac sign.</p></details>
+    </section>
+
+    <section class="culture-section" aria-labelledby="sources-title">
+      <h2 id="sources-title">References &amp; reading notes</h2>
+      <p><a href="https://www.hko.gov.hk/en/gts/time/conversion.htm">Hong Kong Observatory: Gregorian–Lunar Calendar Conversion Table</a> is the calendar reference for checking Lunar New Year boundaries. The animal meanings above are concise summaries of common symbolism, not claims made by the Observatory.</p>
+      <p>The calculator's 1900–2100 Lunar New Year dates were generated with <a href="https://github.com/6tail/lunar-javascript">lunar-javascript</a> and cross-checked against <a href="https://github.com/yize/solarlunar">solarlunar</a>. The dates are bundled locally; your birthday is not sent to a calendar service.</p>
+      <p>Want to carry a meaning into a name? <a href="/#generator" data-culture-link>Find a Chinese name that feels like you ↗</a></p>
+    </section>
+  </main>
+  <footer class="culture-footer"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">漢</span><span>Hànzi</span></a><p>Made for the curious. Culture with context.</p><a href="/chinese-zodiac/year-of-the-horse-2026/" data-culture-link>Year of the Horse 2026 ↗</a></footer>
+</body>
+</html>
