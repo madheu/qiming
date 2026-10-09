@@ -10,9 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('#name-grid');
   const reset = document.querySelector('#reset-button');
   const more = document.querySelector('#more-button');
+  const agentButton = document.querySelector('#agent-button');
+  const agentStatus = document.querySelector('#agent-status');
   let generation = 0;
   let currentNames = [];
   let startedTyping = false;
+  let agentResult = null;
 
   // Lightweight local generator. It follows the same practical approach as
   // open-source Chinese name generators: curated common characters + seeded
@@ -211,6 +214,32 @@ document.addEventListener('DOMContentLoaded', () => {
       button.disabled = false;
       label.textContent = originalLabel;
     }, 500);
+  });
+
+  function localAgentFallback() {
+    return { results: currentNames.slice(0, 3).map(item => ({ characters: item.characters, pinyin: item.pinyin, meaning: item.meaning.split(' · ').map((part, index) => ({ character: index === 0 ? part.charAt(0) : '', gloss: part.replace(/^[^=]+=?\\s*/, '') })), styles: item.styles.map(style => style.toLowerCase()), reason: item.reason })) };
+  }
+  function renderAgentResult(answer) {
+    if (!answer || !Array.isArray(answer.results) || !answer.results[0]) return;
+    const first = answer.results[0];
+    const card = grid.querySelector('.name-card');
+    if (!card) return;
+    const note = document.createElement('p');
+    note.className = 'agent-note';
+    note.innerHTML = `<strong>Naming guide:</strong> ${escapeText(first.reason || 'A considered suggestion based on meaning and rhythm.')}${answer.fallback ? ' <span>(curated fallback)</span>' : ''}`;
+    card.appendChild(note);
+  }
+  if (agentButton) agentButton.addEventListener('click', async () => {
+    if (!window.HanziNameAgent || !currentNames.length) return;
+    agentButton.disabled = true;
+    if (agentStatus) agentStatus.textContent = 'Thinking once…';
+    const request = { task: 'chinese-name', input: nameInput.value.trim(), styles: getStyles().map(style => style.toLowerCase()), pronunciation: document.querySelector('#pronunciation').value };
+    const answer = await window.HanziNameAgent.generate(request, localAgentFallback);
+    agentResult = answer.value;
+    renderAgentResult(answer.value);
+    if (agentStatus) agentStatus.textContent = answer.fallback ? 'Using the curated local guide.' : 'One-shot guide complete.';
+    track('agent_name', { fallback: answer.fallback, generation: generation });
+    agentButton.disabled = false;
   });
 
   more.addEventListener('click', () => {

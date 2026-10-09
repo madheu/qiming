@@ -48,6 +48,8 @@
         <a href="#how">How it works</a>
         <a href="#why">Why Hànzi</a>
         <a href="/chinese-zodiac/" data-culture-link>Chinese zodiac</a>
+        <a href="/courtesy-name-generator/" data-culture-link>Courtesy name</a>
+        <a href="/japanese-name-to-chinese-name/" data-culture-link>Japanese → Chinese</a>
       </nav>
       <div class="header-note"><span class="dot"></span> Made for the curious</div>
     </header>
@@ -113,14 +115,14 @@
             </div>
           </div>
           <button class="primary-button" type="submit"><span>Generate my Chinese name</span><span>↗</span></button>
-          <p class="form-footnote"><span class="spark">✦</span> You’ll get 3 names, with the story behind each.</p>
+          <p class="form-footnote"><span class="spark">✦</span> You’ll get 3 names, with the story behind each.</p><p class="agent-delay-note">AI suggestions are powered by OpenRouter and may take a little longer to arrive.</p>
         </form>
       </section>
 
       <section class="results-section is-hidden" id="results" aria-labelledby="results-title">
         <div class="results-heading reveal"><div><p class="eyebrow"><span>03</span> A few possibilities</p><h2 id="results-title">Meet your <span>Chinese names.</span></h2></div><button class="text-button" id="reset-button">Start over&nbsp; ↗</button></div>
         <div class="name-grid" id="name-grid"></div>
-        <div class="results-footer"><p>Not quite right yet?</p><button class="secondary-button" id="more-button">Generate 3 more <span>↗</span></button></div>
+        <div class="results-footer"><p>Not quite right yet?</p><button class="secondary-button" id="more-button">Generate 3 more <span>↗</span></button><button class="secondary-button" id="agent-button" type="button">Ask the naming guide <span>✦</span></button><span class="agent-status" id="agent-status" aria-live="polite"></span></div>
       </section>
 
       <section class="manifesto" id="why"><div class="manifesto-line"></div><p class="eyebrow"><span>04</span> The Hànzi difference</p><blockquote>“Your Chinese name should sound like a name, not a translation.”</blockquote><p class="manifesto-copy">We balance pronunciation with the quiet art of Chinese naming — choosing characters people actually use, meanings that have room to breathe, and a rhythm that belongs together.</p></section>
@@ -164,6 +166,7 @@
     <script defer src="/_vercel/insights/script.js"></script>
 
     <script defer src="analytics.js"></script>
+    <script defer src="name-agent-client.js"></script>
     <script defer src="script.js"></script>
     <script defer src="culture-events.js"></script>
   </body>

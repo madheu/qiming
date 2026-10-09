@@ -14,8 +14,14 @@ Live: https://chinesename.cc.cd/ (deployed on Vercel; free subdomain provided by
   a "why this name?" explanation, and Copy / Share buttons
 - Generate more, or start over
 
-Name and zodiac generation run client-side. No API key, naming backend, or
-accounts are required. The homepage uses visit and interaction analytics (see below).
+The original name and zodiac fallbacks run client-side. Optional one-shot naming
+enhancements use the same-origin `/api/generate-name` endpoint; the browser never
+receives the model API key and no conversation context is stored. If the endpoint
+is unavailable, the UI uses the local curated fallback.
+
+### OpenRouter configuration
+
+The endpoint is compatible with OpenRouter. Set `MODEL_API_URL=https://openrouter.ai/api/v1/chat/completions` and `MODEL_API_KEY` in the server environment. The default `MODEL_NAME=openrouter/free` lets OpenRouter choose an available zero-cost model; set a pinned model when you need predictable behavior. Never commit a key file—local `API-KEY/` is ignored by git. The current endpoint test used the supplied key and returned HTTP 200; production still needs the environment variables configured in the hosting provider.
 
 ## Files
 
@@ -24,7 +30,10 @@ accounts are required. The homepage uses visit and interaction analytics (see be
 | `index.html` | Markup, form, results, SEO/social metadata, examples, and FAQ |
 | `styles.css` | Core styling and animation |
 | `culture.css` | Responsive styling for SEO culture pages |
-| `script.js` | Generator logic, seeded selection, copy/share, funnel events |
+| `script.js` | Generator logic, seeded fallback selection, copy/share, funnel events |
+| `name-agent-client.js` | One-shot same-origin Agent client; no key or context in the browser |
+| `api/generate-name.js` | Serverless JSON endpoint, model call, validation and fallback |
+| `name-data.js` / `given-names.js` | Curated fallback characters and example given names |
 | `analytics.js` | Site URL config + event tracking (see below) |
 | `og-image.png` | 1200×630 social share card |
 | `tools/make_og_image.py` | Regenerates `og-image.png` (needs Pillow) |
@@ -32,6 +41,9 @@ accounts are required. The homepage uses visit and interaction analytics (see be
 
 ## Culture pages and SEO
 
+- `/courtesy-name-generator/`: one-shot Chinese courtesy-name (字) generator; it generates 字 only, never 号, and explains peer/friend usage.
+- `/japanese-name-to-chinese-name/`: one-shot Japanese-to-Chinese adaptation with conservative/adaptive family-name routes, pinyin, and a katakana reading aid.
+- `/what-is-a-chinese-courtesy-name/`, `/how-to-choose-a-chinese-courtesy-name/`, and `/chinese-name-vs-courtesy-name/`: supporting courtesy-name SEO guides.
 - `/chinese-zodiac/`: birth-year estimate with optional Gregorian month/day confirmation (1900–2100), using Lunar New Year rather than January 1.
 - `/chinese-zodiac/year-of-the-horse-2026/`: twelve animal reflections, explicitly distinguished from predictions and traditional calendar facts.
 - `zodiac-new-years.json` is the source data; `zodiac-new-years.js` is the browser copy. See `calendar-data.md` for provenance. Keep both synchronized; the check compares both copies and validates all 201 new-year boundaries plus anchor dates.
@@ -42,6 +54,7 @@ Run checks:
 
 ```bash
 node tools/check_generator.js
+node tools/check_name_api.js
 node tools/check_zodiac.js
 python tools/check_seo.py
 ```
@@ -52,6 +65,9 @@ These are local changes, not an automatic deployment. After deploying, check all
 
 Optional, configured at the top of `analytics.js`. Leave the id empty and nothing
 loads — the page works fine with no analytics at all.
+
+Actual readings are logged in `analytics-log.md` (one snapshot per reading, with the
+exact date range and sample size, so later numbers can be compared).
 
 ### Google Analytics 4
 
