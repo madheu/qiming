@@ -19,6 +19,7 @@ function serve(req, res) {
   try { if (fs.statSync(file).isDirectory()) file = path.join(file, 'index.html'); } catch (_) {}
   if (!fs.existsSync(file)) { res.statusCode = 404; return res.end('Not found'); }
   res.setHeader('Content-Type', mime[path.extname(file).toLowerCase()] || 'application/octet-stream');
+  res.setHeader('Cache-Control', 'no-store');
   fs.createReadStream(file).pipe(res);
 }
 

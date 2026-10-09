@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const taken = new Set();
     currentNames = [0, 1, 2].map(index => makeName(input, styles, gender, pronunciation, index, taken));
     const displayName = escapeText(input || 'you').toUpperCase();
-    grid.innerHTML = currentNames.map((item, index) => `<article class="name-card"><div class="card-index">0${index + 1} / FOR ${displayName}</div><div class="characters">${item.characters}</div><div class="pinyin">${item.pinyin}</div><p class="meaning">${item.meaning.replace(/·/g, '<br />')}</p><div class="tag-row">${item.styles.map(style => `<span class="tag">${style}</span>`).join('')}</div><div class="why"><strong>Why this name?</strong>${item.reason}</div><div class="card-actions"><button type="button" class="card-action" data-action="copy" data-index="${index}">Copy</button><button type="button" class="card-action" data-action="share" data-index="${index}">Share</button></div></article>`).join('');
+    grid.innerHTML = currentNames.map((item, index) => `<article class="name-card"><div class="card-index">0${index + 1} / FOR ${displayName}</div><div class="characters">${item.characters}</div><div class="pinyin">${item.pinyin}</div><p class="meaning">${item.meaning.replace(/·/g, '<br />')}</p><div class="tag-row">${item.styles.map(style => `<span class="tag">${style}</span>`).join('')}</div><div class="why"><strong>Why this name?</strong>${item.reason}</div><div class="card-actions"><button type="button" class="card-action" data-action="copy" data-index="${index}">Copy</button><button type="button" class="card-action" data-action="share" data-index="${index}">Share</button><button type="button" class="card-action" data-action="card" data-index="${index}">Card</button></div></article>`).join('');
   }
 
   function showResults() {
@@ -160,10 +160,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const item = currentNames[Number(button.dataset.index)];
     if (!item) return;
 
+    if (button.dataset.action === 'card') {
+      const item = currentNames[Number(button.dataset.index)];
+      if (window.HanziShareCard) window.HanziShareCard.open({ name: item.characters, pinyin: item.pinyin, meaning: item.reason, kind: 'Chinese name' });
+      return;
+    }
     if (button.dataset.action === 'copy') {
       const ok = await copyText(`${fullText(item)}\n\n${siteUrl}`);
       flash(button, ok ? 'Copied ✓' : 'Press Ctrl+C');
       track('copy_name', { chinese_name: item.characters, ok: ok, generation: generation });
+      return;
+    }
+    if (window.HanziShareCard) {
+      await window.HanziShareCard.open({ name: item.characters, pinyin: item.pinyin, meaning: item.reason, kind: 'Chinese name' });
+      track('share_name', { chinese_name: item.characters, outcome: 'card', generation: generation });
       return;
     }
     const outcome = await shareName(item);
@@ -228,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!answer || !Array.isArray(answer.results) || answer.results.length < 3) return;
     const names = answer.results.slice(0, 3);
     const displayName = escapeText(nameInput.value.trim() || 'you').toUpperCase();
-    grid.innerHTML = names.map((item, index) => `<article class="name-card"><div class="card-index">0${index + 1} / FOR ${displayName}</div><div class="characters">${escapeText(item.characters)}</div><div class="pinyin">${escapeText(item.pinyin)}</div><p class="meaning">${(item.meaning || []).map(part => `${escapeText(part.character || '')} = ${escapeText(part.gloss || '')}`).join('<br />')}</p><div class="tag-row">${(item.styles || []).map(style => `<span class="tag">${escapeText(style)}</span>`).join('')}</div><div class="why"><strong>Why this name?</strong>${escapeText(item.reason || 'A considered combination of sound, meaning, and rhythm.')}</div><div class="card-actions"><button type="button" class="card-action" data-action="copy" data-index="${index}">Copy</button><button type="button" class="card-action" data-action="share" data-index="${index}">Share</button></div></article>`).join('');
+    grid.innerHTML = names.map((item, index) => `<article class="name-card"><div class="card-index">0${index + 1} / FOR ${displayName}</div><div class="characters">${escapeText(item.characters)}</div><div class="pinyin">${escapeText(item.pinyin)}</div><p class="meaning">${(item.meaning || []).map(part => `${escapeText(part.character || '')} = ${escapeText(part.gloss || '')}`).join('<br />')}</p><div class="tag-row">${(item.styles || []).map(style => `<span class="tag">${escapeText(style)}</span>`).join('')}</div><div class="why"><strong>Why this name?</strong>${escapeText(item.reason || 'A considered combination of sound, meaning, and rhythm.')}</div><div class="card-actions"><button type="button" class="card-action" data-action="copy" data-index="${index}">Copy</button><button type="button" class="card-action" data-action="share" data-index="${index}">Share</button><button type="button" class="card-action" data-action="card" data-index="${index}">Card</button></div></article>`).join('');
     currentNames = names.map(item => ({ characters: item.characters, pinyin: item.pinyin, tagline: item.reason || '', meaning: (item.meaning || []).map(part => `${part.character || ''} = ${part.gloss || ''}`).join(' · '), styles: item.styles || [], reason: item.reason || '' }));
     agentResult = answer;
   }
