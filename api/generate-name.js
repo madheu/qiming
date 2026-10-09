@@ -22,6 +22,7 @@ General rules:
 - Create natural Chinese names, not literal translations or random beautiful-character pairs.
 - Prefer characters used in real modern Chinese names. Check meaning, semantic coherence, tone rhythm and Chinese name order.
 - Explain the selected characters in plain English.
+- For chinese-name, return exactly three distinct candidates with visibly different composition, semantic direction, or register. Do not recycle one fixed two-character pattern; vary surname, character pairing, and imagery while keeping every result natural.
 - Never invent a historical source, quotation, person, or linguistic fact. If a source is uncertain, omit it.
 - Never make legal, ethnic, religious, or identity claims about the user.
 Courtesy-name rules:
@@ -143,7 +144,7 @@ function validResponse(task, value, recentlyUsed = []) {
   if (resultNames(task, value).some(name => blocked.has(name))) return false;
   if (task === 'chinese-name') {
     const names = resultNames(task, value);
-    return Array.isArray(value.results) && names.length === value.results.length && new Set(names).size === names.length && value.results.every(item => text(item.characters, 20) && text(item.pinyin, 80) && text(item.reason, 600));
+    return Array.isArray(value.results) && value.results.length >= 3 && names.length === value.results.length && new Set(names).size === names.length && value.results.every(item => text(item.characters, 20) && text(item.pinyin, 80) && text(item.reason, 600));
   }
   if (task === 'courtesy-name') return text(value.givenName, 20) && value.courtesyName && text(value.courtesyName.characters, 20) && value.courtesyName.characters !== value.givenName && text(value.courtesyName.pinyin, 80) && text(value.courtesyName.reason, 600) && !/号|art\s*name/i.test(JSON.stringify(value));
   return chineseOnly(value.chineseName) && text(value.pinyin, 100) && text(value.katakana, 100) && Array.isArray(value.preserved) && Array.isArray(value.adapted) && Array.isArray(value.notes);

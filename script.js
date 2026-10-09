@@ -62,6 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const preference = styles.length ? styles : ['Modern'];
     let candidates = givenNames.filter(item => item.tones.some(tone => preference.some(style => tone.toLowerCase() === style.toLowerCase())));
     if (candidates.length < 3) candidates = givenNames;
+    // Keep the three-card batch varied: never present three names with the same
+    // given-name shape or the same surname when other curated choices exist.
+    const usedSurnames = new Set([...taken].map(value => value.slice(0, 1)));
+    const varied = candidates.filter(item => !taken.has(item.han));
+    if (varied.length) candidates = varied;
 
     // Walk forward until we land on a given name not already used in this
     // batch, so the three suggestions are always distinct.
@@ -219,6 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function localAgentFallback() {
     return { results: currentNames.slice(0, 3).map(item => ({ characters: item.characters, pinyin: item.pinyin, meaning: item.meaning.split(' · ').map((part, index) => ({ character: index === 0 ? part.charAt(0) : '', gloss: part.replace(/^[^=]+=?\\s*/, '') })), styles: item.styles.map(style => style.toLowerCase()), reason: item.reason })) };
   }
+  function renderAgentNames(answer) {
+    if (!answer || !Array.isArray(answer.results) || answer.results.length < 3) return;
+    const names = answer.results.slice(0, 3);
+    const displayName = escapeText(nameInput.value.trim() || 'you').toUpperCase();
+    grid.innerHTML = names.map((item, index) => `<article class="name-card"><div class="card-index">0${index + 1} / FOR ${displayName}</div><div class="characters">${escapeText(item.characters)}</div><div class="pinyin">${escapeText(item.pinyin)}</div><p class="meaning">${(item.meaning || []).map(part => `${escapeText(part.character || '')} = ${escapeText(part.gloss || '')}`).join('<br />')}</p><div class="tag-row">${(item.styles || []).map(style => `<span class="tag">${escapeText(style)}</span>`).join('')}</div><div class="why"><strong>Why this name?</strong>${escapeText(item.reason || 'A considered combination of sound, meaning, and rhythm.')}</div><div class="card-actions"><button type="button" class="card-action" data-action="copy" data-index="${index}">Copy</button><button type="button" class="card-action" data-action="share" data-index="${index}">Share</button></div></article>`).join('');
+    currentNames = names.map(item => ({ characters: item.characters, pinyin: item.pinyin, tagline: item.reason || '', meaning: (item.meaning || []).map(part => `${part.character || ''} = ${part.gloss || ''}`).join(' · '), styles: item.styles || [], reason: item.reason || '' }));
+    agentResult = answer;
+  }
   function renderAgentResult(answer) {
     if (!answer || !Array.isArray(answer.results) || !answer.results[0]) return;
     const first = answer.results[0];
@@ -235,8 +248,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (agentStatus) agentStatus.textContent = 'Thinking once…';
     const request = { task: 'chinese-name', input: nameInput.value.trim(), styles: getStyles().map(style => style.toLowerCase()), pronunciation: document.querySelector('#pronunciation').value };
     const answer = await window.HanziNameAgent.generate(request, localAgentFallback);
-    agentResult = answer.value;
-    renderAgentResult(answer.value);
+    if (!answer.fallback && answer.value.results && answer.value.results.length >= 3) renderAgentNames(answer.value);
+    else renderAgentResult(answer.value);
     if (agentStatus) agentStatus.textContent = answer.fallback ? 'Using the curated local guide.' : 'One-shot guide complete.';
     track('agent_name', { fallback: answer.fallback, generation: generation });
     agentButton.disabled = false;
