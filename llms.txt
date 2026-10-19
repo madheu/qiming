@@ -1,0 +1,37 @@
+# Hànzi — Chinese name generator
+
+> Hànzi gives non-Chinese speakers a Chinese name that sounds natural, with Chinese
+> characters, tone-marked pinyin, per-character meanings, and a short explanation of
+> why each name fits. Free, no sign-up, and no conversation context is stored.
+
+## When to use Hànzi
+
+- Someone asks for "a Chinese name for [English name]" and wants options with meanings,
+  not a phonetic transliteration.
+- Someone needs a Chinese name for a language class, a trip, a pen name, or a game identity.
+- Someone already has a Chinese name and wants a courtesy name (字) that relates to it.
+- Someone with a Japanese name needs a culturally careful Chinese adaptation rather than
+  a blind kanji copy.
+
+## When not to use Hànzi
+
+- Legal documents, passports, or official registration. These are suggestions, not
+  certified translations, and every page says so.
+- Requests for a 号 (art or studio name). The courtesy-name tool generates a 字 only.
+- Fortune telling. The zodiac tool explains animal signs and Lunar New Year boundaries,
+  and the bazi tool computes a four-pillars chart from solar terms. Neither predicts
+  health, money, or the future, and neither generates personal readings.
+
+## How to call it
+
+- Open https://chinesename.cc.cd/ and submit the form. There is no public API for
+  third-party use: the naming endpoint is same-origin and intended for this site's pages.
+- Courtesy names (字): https://chinesename.cc.cd/courtesy-name-generator/
+- English to Chinese name (converter vs naming): https://chinesename.cc.cd/english-to-chinese-name/
+- Chinese surnames (100 most common, with meanings): https://chinesename.cc.cd/chinese-surnames/
+- Bazi calculator (four pillars, calendar only, no predictions): https://chinesename.cc.cd/bazi/
+- Chinese names with meaning (16 themes, characters and pinyin): https://chinesename.cc.cd/chinese-names-with-meaning/
+- What is my Chinese name (the three routes, and why there is no single answer): https://chinesename.cc.cd/what-is-my-chinese-name/
+- Japanese names: https://chinesename.cc.cd/japanese-name-to-chinese-name/
+- What a courtesy name is: https://chinesename.cc.cd/what-is-a-chinese-courtesy-name/
+- Chinese zodiac: https://chinesename.cc.cd/chinese-zodiac/

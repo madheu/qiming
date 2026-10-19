@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bazi Calculator — Four Pillars Chart (八字) | Hànzi</title>
+    <meta name="description" content="Enter a birth date and time to get the four pillars: year, month, day and hour, with the solar term that sets each month. Calendar arithmetic, not fortune telling." />
+    <link rel="canonical" href="https://chinesename.cc.cd/bazi/" />
+    <meta name="theme-color" content="#315347" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Hànzi" />
+    <meta property="og:url" content="https://chinesename.cc.cd/bazi/" />
+    <meta property="og:title" content="Bazi Calculator — Four Pillars Chart" />
+    <meta property="og:description" content="Year, month, day and hour pillars from a birth date — with the solar terms that set them, and no predictions." />
+    <meta property="og:image" content="https://chinesename.cc.cd/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bazi Calculator — Four Pillars Chart" />
+    <meta name="twitter:description" content="Year, month, day and hour pillars from a birth date — calendar arithmetic, not fortune telling." />
+    <meta name="twitter:image" content="https://chinesename.cc.cd/og-image.png" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/culture.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"WebApplication","name":"Bazi Calculator — Four Pillars Chart","url":"https://chinesename.cc.cd/bazi/","description":"A deterministic four-pillars (bazi) calculator that converts a birth date and time into year, month, day and hour pillars using solar terms. No predictions.","applicationCategory":"LifestyleApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":"en"}
+    </script>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://chinesename.cc.cd/"},{"@type":"ListItem","position":2,"name":"Bazi calculator"}]}
+    </script>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a bazi chart?","acceptedAnswer":{"@type":"Answer","text":"Bazi means eight characters. The chart has four pillars — year, month, day and hour — and each pillar is a pair of one heavenly stem and one earthly branch, so four pairs make eight characters. The day pillar is the one traditional readings centre on."}},{"@type":"Question","name":"Why does the year start at 立春 instead of January 1?","acceptedAnswer":{"@type":"Answer","text":"The pillars are built from the solar calendar the year's 节, and 立春 is the first of them. So a birth in January still belongs to the previous pillar year, and the pillar year does not change on January 1. It also does not change at Lunar New Year, which is a different boundary again."}},{"@type":"Question","name":"What if I do not know my birth time?","acceptedAnswer":{"@type":"Answer","text":"Leave the time field empty. The page will compute three pillars and omit the hour pillar rather than inventing a time. A traditional reading without a birth hour is limited for the same reason, but the calendar part is still exact."}},{"@type":"Question","name":"Does this page predict my wealth, career or love life?","acceptedAnswer":{"@type":"Answer","text":"No. This page computes a calendar chart. It does not score, rank or forecast anything, and it does not generate personal readings. The arithmetic is reproducible; claims that a chart predicts a life are a separate matter and we do not make them."}},{"@type":"Question","name":"Which time zone should I use?","acceptedAnswer":{"@type":"Answer","text":"China Standard Time (UTC+8), which is what the underlying solar-term data uses. If you were born outside China, converting to UTC+8 is a convention rather than a rule; some practitioners use local solar time instead. The difference only matters near a solar-term boundary or close to 23:00."}},{"@type":"Question","name":"Why does the day change at 23:00?","acceptedAnswer":{"@type":"Answer","text":"The first double hour (子时) runs from 23:00 to 01:00, and the traditional convention treats a birth at 23:00 or later as belonging to the next day. This is the 晚子时 rule. Some schools instead switch at midnight, which can move the day pillar by one place."}}]}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#top">Skip to main content</a>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Hànzi home"><span class="brand-mark">漢</span><span>Hànzi</span></a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="/" data-culture-link>Chinese name</a>
+        <a href="/chinese-surnames/" data-culture-link>Chinese surnames</a>
+        <a href="/chinese-zodiac/" data-culture-link>Chinese zodiac</a>
+      </nav>
+    </header>
+
+    <main class="culture-main" id="top">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Bazi calculator</li></ol></nav>
+
+      <section class="culture-hero">
+        <p class="culture-kicker">A Hànzi calendar tool · 八字 bāzì</p>
+        <h1>Four pillars,<br /><em>read as a calendar.</em></h1>
+        <p>Enter a birth date and time to get the four pillars — year, month, day and hour — along with the solar term that set each month. This page computes the chart. It does not interpret it, score it, or tell you what is going to happen to your money.</p>
+      </section>
+
+      <section class="culture-section" id="chart">
+        <h2>Compute a chart</h2>
+        <form class="culture-form" id="bazi-form">
+          <div class="culture-grid bazi-inputs">
+            <div>
+              <label for="bazi-date">Birth date</label>
+              <input id="bazi-date" name="bazi-date" type="date" min="1900-01-01" max="2100-12-31" required />
+            </div>
+            <div>
+              <label for="bazi-time">Birth time <span>(optional)</span></label>
+              <input id="bazi-time" name="bazi-time" type="time" />
+            </div>
+          </div>
+          <p>Times are read as China Standard Time (UTC+8). Leave the time empty if you only know the date — the hour pillar will be omitted rather than guessed.</p>
+          <button type="submit">Show the four pillars</button>
+        </form>
+        <div class="bazi-result is-hidden" id="bazi-result" aria-live="polite"></div>
+        <p class="bazi-status" id="bazi-status" aria-live="polite"></p>
+      </section>
+
+      <section class="culture-section" id="what">
+        <h2>What the four pillars are</h2>
+        <p>Bazi (八字, “eight characters”) is a chart of four pillars. Each pillar pairs one of the ten heavenly stems (天干) with one of the twelve earthly branches (地支), so four pillars hold eight characters. The pillars are built from the solar calendar, not from the lunar one, which is where most of the confusion starts.</p>
+        <div class="culture-table-wrap">
+          <table class="culture-table">
+            <thead><tr><th scope="col">Pillar</th><th scope="col">What sets it</th><th scope="col">Changes at</th></tr></thead>
+            <tbody>
+              <tr><td>Year 年柱</td><td>The solar year</td><td><span lang="zh">立春</span>, usually 3–5 February</td></tr>
+              <tr><td>Month 月柱</td><td>Which of the twelve <span lang="zh">节</span> is in force</td><td>Its <span lang="zh">节</span>, roughly every 30 days</td></tr>
+              <tr><td>Day 日柱</td><td>The 60-day cycle</td><td>At 23:00 (晚子时)</td></tr>
+              <tr><td>Hour 时柱</td><td>The two-hour branch and the day stem</td><td>Every two hours, starting at 23:00</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The ten stems and twelve branches combine in a cycle of sixty, which is why the day pillar is a 60-day rotation and the year pillar a 60-year one.</p>
+      </section>
+
+      <section class="culture-section" id="year">
+        <h2>Why the year starts at 立春, not January 1</h2>
+        <p>Three different “new years” run through Chinese calendars, and they are often confused:</p>
+        <ul>
+          <li><strong>January 1</strong> — the Gregorian new year. The pillars ignore it.</li>
+          <li><strong>Lunar New Year</strong> — the first day of the first lunar month, which moves between late January and late February. The zodiac animal on our calculator follows this boundary.</li>
+          <li><strong><span lang="zh">立春</span></strong> — the first of the solar terms, usually 3–5 February. The bazi year pillar changes here.</li>
+        </ul>
+        <p>So a birth on 20 January belongs to the previous pillar year even though it is in the new Gregorian year, and a birth between Lunar New Year and 立春 can carry the new zodiac animal while still sitting in the old pillar year. Those are not contradictions; they are different systems.</p>
+      </section>
+
+      <section class="culture-section" id="month">
+        <h2>Why months start at a 节</h2>
+        <p>The twelve months of the pillars are anchored to twelve solar terms rather than to the first of the month. Each month begins when the sun reaches a particular point in its annual path, which is why the boundary can fall at any hour of the day — and why a birth can be in the previous month even though the calendar says otherwise.</p>
+        <p>That is also why this page shows the governing term and its exact moment. If a chart looks wrong to you, the usual reason is a birth within a day of one of those boundaries.</p>
+      </section>
+
+      <section class="culture-section" id="day">
+        <h2>Why the day changes at 23:00</h2>
+        <p>The first double hour, <span lang="zh">子时</span>, runs from 23:00 to 01:00. Under the <span lang="zh">晚子时</span> convention used here, a birth at 23:00 or later is treated as belonging to the next day, which moves both the day pillar and the hour pillar.</p>
+        <p>Some schools switch at midnight instead. Both conventions are in use, and they disagree for exactly one hour of the day. If your birth time is close to 23:00, expect different calculators to disagree — that is a convention difference, not a calculation error.</p>
+      </section>
+
+      <section class="culture-section" id="limits">
+        <h2>What this page does not do</h2>
+        <div class="culture-note">
+          <p><strong>It does not predict.</strong> Turning a date into four pillars is precise, reproducible arithmetic. Whether the resulting chart says anything true about a person’s wealth, career, relationships or health is a separate claim, and not one that has been demonstrated. We compute the first part and stay quiet about the second.</p>
+          <p><strong>It does not read the chart either.</strong> There is no interpretation of <span lang="zh">十神</span>, no 命宫, no 大运, no lucky-element advice. Those are interpretive layers, and mixing them into a calculator is how a calendar tool turns into a fortune-telling app.</p>
+          <p><strong>It does not model hidden stems.</strong> The element tally counts the four stems and four branches you can see. Traditional readings also weigh 藏干 and seasonal strength, which we do not attempt.</p>
+        </div>
+      </section>
+
+      <section class="culture-section" id="verified">
+        <h2>How the calculation is checked</h2>
+        <p>Every solar term from 1900 to 2100 was generated once, at development time, from <span lang="zh">sxtwl</span> (寿星天文历) and committed as static data. Nothing is fetched at runtime.</p>
+        <p>The browser arithmetic is then tested against 184 charts generated independently from the same library, plus 144 boundary cases — one minute either side of every <span lang="zh">节</span> in six sample years — so a wrong month or year at a boundary fails the test rather than reaching a visitor.</p>
+      </section>
+
+      <section class="culture-section" id="faq">
+        <h2>Questions about bazi charts</h2>
+        <details><summary>What is a bazi chart?</summary><p>Bazi means eight characters. The chart has four pillars — year, month, day and hour — and each pillar is a pair of one heavenly stem and one earthly branch, so four pairs make eight characters. The day pillar is the one traditional readings centre on.</p></details>
+        <details><summary>Why does the year start at 立春 instead of January 1?</summary><p>The pillars are built from the solar calendar the year’s <span lang="zh">节</span>, and <span lang="zh">立春</span> is the first of them. So a birth in January still belongs to the previous pillar year. It also does not change at Lunar New Year, which is a different boundary again.</p></details>
+        <details><summary>What if I do not know my birth time?</summary><p>Leave the time field empty. The page computes three pillars and omits the hour pillar rather than inventing a time. The calendar part stays exact.</p></details>
+        <details><summary>Does this page predict my wealth, career or love life?</summary><p>No. This page computes a calendar chart. It does not score, rank or forecast anything, and it does not generate personal readings. The arithmetic is reproducible; claims that a chart predicts a life are a separate matter and we do not make them.</p></details>
+        <details><summary>Which time zone should I use?</summary><p>China Standard Time (UTC+8), which is what the underlying solar-term data uses. If you were born outside China, converting to UTC+8 is a convention rather than a rule; some practitioners use local solar time instead. The difference only matters near a solar-term boundary or close to 23:00.</p></details>
+        <details><summary>Why does the day change at 23:00?</summary><p>The first double hour (<span lang="zh">子时</span>) runs from 23:00 to 01:00, and the traditional convention treats a birth at 23:00 or later as belonging to the next day. This is the <span lang="zh">晚子时</span> rule. Some schools instead switch at midnight, which can move the day pillar by one place.</p></details>
+      </section>
+
+      <aside class="culture-section culture-note">
+        <p class="culture-kicker">Keep going</p>
+        <h2>The year branch is also your zodiac animal.</h2>
+        <p>The twelve earthly branches map onto the twelve animals. If you want the birth-year version of that calculation — using Lunar New Year rather than 立春 — the zodiac calculator does exactly one job and says so.</p>
+        <div class="culture-actions">
+          <a href="/chinese-zodiac/" data-culture-link>Chinese zodiac calculator ↗</a>
+          <a href="/chinese-surnames/" data-culture-link>Chinese surnames ↗</a>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="culture-footer">
+      <span>Hànzi · names not yet discovered</span>
+      <a href="/">Back to Chinese Name Generator ↗</a>
+      <nav class="footer-guides" aria-label="All guides"><a href="/">Chinese name generator</a><a href="/what-is-my-chinese-name/">What is my Chinese name?</a><a href="/chinese-names-with-meaning/">Chinese names with meaning</a><a href="/english-to-chinese-name/">English to Chinese name</a><a href="/chinese-surnames/">Chinese surnames</a><a href="/bazi/">Bazi calculator</a><a href="/courtesy-name-generator/">Courtesy name generator</a><a href="/what-is-a-chinese-courtesy-name/">What is a courtesy name?</a><a href="/japanese-name-to-chinese-name/">Japanese name to Chinese name</a><a href="/chinese-zodiac/">Chinese zodiac calculator</a><a href="/chinese-zodiac/year-of-the-horse-2026/">Year of the Horse 2026</a></nav>
+    </footer>
+
+    <script src="/bazi-data.js"></script>
+    <script src="/bazi.js"></script>
+  </body>
+</html>

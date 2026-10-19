@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    { "source": "/how-to-choose-a-chinese-courtesy-name", "destination": "/what-is-a-chinese-courtesy-name/", "permanent": true },
+    { "source": "/how-to-choose-a-chinese-courtesy-name/", "destination": "/what-is-a-chinese-courtesy-name/", "permanent": true },
+    { "source": "/chinese-name-vs-courtesy-name", "destination": "/what-is-a-chinese-courtesy-name/", "permanent": true },
+    { "source": "/chinese-name-vs-courtesy-name/", "destination": "/what-is-a-chinese-courtesy-name/", "permanent": true }
+  ]
+}

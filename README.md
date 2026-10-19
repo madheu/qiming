@@ -43,12 +43,19 @@ The endpoint is compatible with OpenRouter. Set `MODEL_API_URL=https://openroute
 
 - `/courtesy-name-generator/`: one-shot Chinese courtesy-name (字) generator; it generates 字 only, never 号, and explains peer/friend usage.
 - `/japanese-name-to-chinese-name/`: one-shot Japanese-to-Chinese adaptation with conservative/adaptive family-name routes, pinyin, and a katakana reading aid.
-- `/what-is-a-chinese-courtesy-name/`, `/how-to-choose-a-chinese-courtesy-name/`, and `/chinese-name-vs-courtesy-name/`: supporting courtesy-name SEO guides.
+- `/english-to-chinese-name/`: converter / translation intent — transliteration vs meaning vs the blended route, with standard transliterations and the limits of a letter-to-character converter.
+- `/chinese-surnames/`: reference page for the 100 most common surnames — characters, pinyin, literal meanings, cited origins, overseas spellings and compound surnames. Deliberately separates a character's meaning from a surname's disputed origin.
+- `/bazi/`: four-pillars (八字) calculator. Deterministic calendar arithmetic only — year, month, day and hour pillars plus the governing solar term. No predictions, no readings, no scoring. Solar-term data is generated at development time from `sxtwl`; verified by `tools/check_bazi.js` against 184 independent charts and 144 boundary cases.
+- `/chinese-names-with-meaning/`: meaning hub — 16 themes (light, moon, jade, lotus, dragon, peace …) with four example given names each, characters and pinyin. Built from real autocomplete demand; deliberately excludes the fantasy-name intents ("vampire", "killer") that share the same query pattern.
+- `/what-is-my-chinese-name/`: the decision page — why there is no single answer, the three routes, an honest treatment of "based on my birthday" (links to `/bazi/`), and a four-question self-check instead of a fake quiz.
+- `/what-is-a-chinese-courtesy-name/`: the courtesy-name pillar page — what 字 means, how 名 / 字 / 号 differ, documented examples of how a 字 relates to a 名, and how to choose one. The former `/how-to-choose-a-chinese-courtesy-name/` and `/chinese-name-vs-courtesy-name/` pages were merged into it; `vercel.json` 301s both old URLs here.
 - `/chinese-zodiac/`: birth-year estimate with optional Gregorian month/day confirmation (1900–2100), using Lunar New Year rather than January 1.
 - `/chinese-zodiac/year-of-the-horse-2026/`: twelve animal reflections, explicitly distinguished from predictions and traditional calendar facts.
 - `zodiac-new-years.json` is the source data; `zodiac-new-years.js` is the browser copy. See `calendar-data.md` for provenance. Keep both synchronized; the check compares both copies and validates all 201 new-year boundaries plus anchor dates.
 - `culture.css` shares the existing design tokens. New pages do not load GA or other analytics providers. `HanziCulture.events` records local, in-memory interactions with the sign and confirmation status only, never the birthday; homepage clicks use the already-loaded provider.
-- Homepage includes static examples and FAQ. All three pages have canonical URLs and JSON-LD and are listed in `sitemap.xml`.
+- Homepage includes static examples and a FAQ with `FAQPage` markup. Every page has a canonical URL and JSON-LD, subpages carry a visible breadcrumb trail plus `BreadcrumbList`, and all six content pages are listed in `sitemap.xml` with `lastmod`.
+- `llms.txt` says when to use the site and how to reach it, for AI answer engines.
+- `/share/` renders shared name cards from a URL fragment. It is `noindex` and deliberately absent from the sitemap.
 
 Run checks:
 
@@ -56,6 +63,7 @@ Run checks:
 node tools/check_generator.js
 node tools/check_name_api.js
 node tools/check_zodiac.js
+node tools/check_bazi.js
 python tools/check_seo.py
 ```
 
@@ -159,6 +167,9 @@ Static site, no build step — any static host works. Vercel settings:
 - Build command: *(leave empty)*
 - Output directory: *(leave empty, serves the repo root)*
 
+`vercel.json` holds the 301 redirects for the two merged courtesy-name pages. Hosts
+other than Vercel need the equivalent rules configured themselves.
+
 ### Why Vercel and not Cloudflare
 
 The site was first deployed to a Cloudflare Worker, but `chinesename.cc.cd` cannot be
@@ -172,14 +183,17 @@ script tag, so it works the same on Vercel, Cloudflare, or anywhere else.
 
 ## Domains
 
-The absolute URL appears in three places, because crawlers read static HTML and
-cannot run JavaScript:
+The absolute URL appears in every static file a crawler reads without running
+JavaScript:
 
-1. `index.html` — `canonical`, `og:url`, `og:image`, `twitter:image`
-2. `analytics.js` — `config.siteUrl` (share links and copied text)
-3. `tools/make_og_image.py` — `SITE_URL` (the printed URL on the card)
+1. each page's `canonical`, `og:url`, `og:image`, `twitter:image` and JSON-LD
+2. `robots.txt` — the `Sitemap:` line
+3. `sitemap.xml` — every `<loc>`
+4. `llms.txt` — the page links
+5. `analytics.js` — `config.siteUrl` (share links and copied text)
+6. `tools/make_og_image.py` — `SITE_URL` (the printed URL on the card)
 
-Update all three together, then regenerate `og-image.png`.
+Update them together, then regenerate `og-image.png` and re-submit the sitemap.
 
 ## Notes
 
