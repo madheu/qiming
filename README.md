@@ -82,9 +82,17 @@ exact date range and sample size, so later numbers can be compared).
 GA4 covers both layers we care about, so there is only one service to manage:
 traffic (visits, referrers, countries, devices) plus the custom funnel events.
 
-1. GA4 → **Admin → Data streams → Web** → add `https://chinesename.cc.cd`
-2. Copy the **Measurement ID** (`G-XXXXXXXXXX`)
-3. Paste it into `ga4MeasurementId` in `analytics.js`
+1. GA4 → **Admin** → in the **Account** column click **Create → Property**. Name it
+   after the domain (`chinesename.cc.cd`) so it cannot be confused with another project.
+2. Inside that new property only: **Data collection → Web** → add `https://chinesename.cc.cd`
+3. Copy the **Measurement ID** (`G-XXXXXXXXXX`) from that stream's detail page
+4. Paste it into `ga4MeasurementId` in `analytics.js`
+
+Do **not** arrive at the stream form through an existing property's
+**Data streams → Add stream**. That attaches this site to whichever property you are
+standing in. The code and the ID look exactly the same either way, so the mistake is
+invisible until someone reads the wrong property's reports — which is what happened on
+2026-10-05 (see `analytics-log.md`).
 
 Then in GA4, mark `generate` (and ideally `copy_name`) as **key events** so they
 appear under conversions, and build a funnel in **Explore**.

@@ -26,9 +26,15 @@ window.HANZI = (function () {
     // Used for share links and the copied share text.
     siteUrl: 'https://chinesename.cc.cd',
 
-    // GA4 -> Admin -> Data streams -> Web -> your stream -> Measurement ID.
-    // Looks like 'G-XXXXXXXXXX'.
-    ga4MeasurementId: 'G-ZN6756EBP0',
+    // This site's OWN property, not a stream borrowed from another project:
+    // GA4 -> Admin -> (Account column) Create -> Property -> Data collection
+    // -> Web -> your stream -> Measurement ID. Looks like 'G-XXXXXXXXXX'.
+    //
+    // Do not take the ID from an existing property's Data streams -> Add
+    // stream. That attaches this site to whichever property you are standing
+    // in, behaves identically in code, and silently pollutes that property's
+    // reports. That is how the first ID here went wrong (2026-10-05).
+    ga4MeasurementId: 'G-MCM6Y35T83',
   };
 
   if (config.ga4MeasurementId) {
