@@ -3,8 +3,12 @@
 GA4 的数据只记在这里，按时间倒序追加。目的不是"看数字涨了没"，
 而是攒出足够长的基线后，能回答一个问题：**访客从哪来、走到漏斗哪一步就停了。**
 
-数据来源：GA4（站点 `https://chinesename.cc.cd`，由 `analytics.js` 加载）。事件名见
+数据来源：GA4（站点 `https://www.hanziname.fun`，由 `analytics.js` 加载）。事件名见
 `README.md` 的 Analytics 一节。
+
+站点域名会变：2026-10-20 起是 `www.hanziname.fun`（apex 308 跳 www），此前是
+`chinesename.cc.cd`。老域名现在返回 `DEPLOYMENT_NOT_FOUND`，不再是本站入口。**拿两条
+快照做比较之前，先确认它们读的是同一域名下的同一属性**，否则分母里混的是两套入口。
 
 Measurement ID 会变：2026-10-05 至 2026-10-20 用的是 `G-ZN6756EBP0`，事后确认它属于
 **另一个项目**的属性，不是本站的。那段时间的所有读数都取自那个被污染的属性，**不能

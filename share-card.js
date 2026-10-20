@@ -38,7 +38,7 @@
     if (line) lines.push(line);
     lines.slice(0, 3).forEach((text, index) => ctx.fillText(index === 2 && lines.length > 3 ? text + '…' : text, 600, 455 + index * 30, 880));
     ctx.fillStyle = '#d56c4e'; ctx.font = '22px Georgia'; ctx.fillText('✦', 600, 555);
-    ctx.fillStyle = '#66736d'; ctx.font = '16px Georgia'; ctx.fillText('chinesename.cc.cd · a name, another world', 600, 579);
+    ctx.fillStyle = '#66736d'; ctx.font = '16px Georgia'; ctx.fillText('www.hanziname.fun · a name, another world', 600, 579);
     return canvas;
   }
   async function open(value) {

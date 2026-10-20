@@ -3,7 +3,11 @@
 A small, dependency-free web tool that gives non-Chinese speakers a Chinese name
 that sounds natural, plus the reasoning behind each choice.
 
-Live: https://chinesename.cc.cd/ (deployed on Vercel; free subdomain provided by DNSHE)
+Live: https://www.hanziname.fun/ (deployed on Vercel; apex `hanziname.fun` 308s to `www`)
+
+The site previously lived at `https://chinesename.cc.cd/` and moved to
+`www.hanziname.fun` on 2026-10-20. The old host no longer carries a deployment — it
+returns `DEPLOYMENT_NOT_FOUND` — so any URL still pointing at it is a dead link.
 
 ## What it does
 
@@ -83,8 +87,8 @@ GA4 covers both layers we care about, so there is only one service to manage:
 traffic (visits, referrers, countries, devices) plus the custom funnel events.
 
 1. GA4 → **Admin** → in the **Account** column click **Create → Property**. Name it
-   after the domain (`chinesename.cc.cd`) so it cannot be confused with another project.
-2. Inside that new property only: **Data collection → Web** → add `https://chinesename.cc.cd`
+   after the domain (`www.hanziname.fun`) so it cannot be confused with another project.
+2. Inside that new property only: **Data collection → Web** → add `https://www.hanziname.fun`
 3. Copy the **Measurement ID** (`G-XXXXXXXXXX`) from that stream's detail page
 4. Paste it into `ga4MeasurementId` in `analytics.js`
 
@@ -186,6 +190,10 @@ accounts, so a delegated subdomain cannot be added, and a Worker/Pages custom do
 requires the hostname to live in a zone in your account. Vercel allows binding a
 subdomain you only hold a CNAME for, which is what DNSHE gives you.
 
+That constraint applied to the free subdomain the site used before 2026-10-20. The
+current domain `hanziname.fun` is a normal registered domain, but the site stays on
+Vercel for the simpler deploys and the existing redirect config.
+
 Analytics is independent of the host — GA4 is loaded by `analytics.js` as a plain
 script tag, so it works the same on Vercel, Cloudflare, or anywhere else.
 
@@ -202,6 +210,10 @@ JavaScript:
 6. `tools/make_og_image.py` — `SITE_URL` (the printed URL on the card)
 
 Update them together, then regenerate `og-image.png` and re-submit the sitemap.
+
+All six were switched from `chinesename.cc.cd` to `www.hanziname.fun` on 2026-10-20.
+`www` is deliberate: the apex 308-redirects to it, so `www` is the canonical host. If
+the domain changes again, change these six and nothing else.
 
 ## Notes
 

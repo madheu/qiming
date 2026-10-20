@@ -29,7 +29,7 @@
     const share = result.querySelector('#share-courtesy');
     if (share) share.addEventListener('click', () => window.HanziShareCard && window.HanziShareCard.open({ name: item.characters, pinyin: item.pinyin, meaning: item.reason, kind: 'Courtesy name · 字' }));
     const copy = result.querySelector('#copy-courtesy');
-    if (copy) copy.addEventListener('click', async () => { const text = `${item.characters} (${item.pinyin})\n${item.reason}\nhttps://chinesename.cc.cd/courtesy-name-generator/`; try { await navigator.clipboard.writeText(text); copy.textContent = 'Copied ✓'; } catch (_) { copy.textContent = 'Select and copy'; } });
+    if (copy) copy.addEventListener('click', async () => { const text = `${item.characters} (${item.pinyin})\n${item.reason}\nhttps://www.hanziname.fun/courtesy-name-generator/`; try { await navigator.clipboard.writeText(text); copy.textContent = 'Copied ✓'; } catch (_) { copy.textContent = 'Select and copy'; } });
   }
   form.addEventListener('submit', async event => {
     event.preventDefault();

@@ -6,7 +6,7 @@ from urllib.parse import urlsplit
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).parent.parent
-BASE = 'https://chinesename.cc.cd'
+BASE = 'https://www.hanziname.fun'
 NS = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
 
 PAGES = [

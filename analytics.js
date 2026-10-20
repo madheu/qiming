@@ -24,7 +24,7 @@
 window.HANZI = (function () {
   var config = {
     // Used for share links and the copied share text.
-    siteUrl: 'https://chinesename.cc.cd',
+    siteUrl: 'https://www.hanziname.fun',
 
     // This site's OWN property, not a stream borrowed from another project:
     // GA4 -> Admin -> (Account column) Create -> Property -> Data collection

@@ -20,7 +20,7 @@ Choose the closest available labels to: Education, Languages / Language Learning
 
 **Website**
 
-https://chinesename.cc.cd/
+https://www.hanziname.fun/
 
 **Maker comment / description**
 
@@ -40,7 +40,7 @@ We also added a small Chinese zodiac guide: find your animal from your birth yea
 
 Built for Chinese learners, travelers, writers, students, and anyone curious about carrying a little more meaning into a name.
 
-Try it here: https://chinesename.cc.cd/
+Try it here: https://www.hanziname.fun/
 
 ## Short description (if the form asks for one)
 
@@ -74,7 +74,7 @@ Thanks for checking out Hànzi! If you try it, tell me which name you got and wh
 
 I made Hànzi: a free Chinese name generator that gives you characters, pinyin, meanings, and the story behind each name. No sign-up, no random character soup.
 
-Try it → https://chinesename.cc.cd/
+Try it → https://www.hanziname.fun/
 
 ## Asset order
 

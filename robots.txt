@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chinesename.cc.cd/sitemap.xml
+Sitemap: https://www.hanziname.fun/sitemap.xml

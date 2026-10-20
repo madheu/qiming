@@ -14,7 +14,7 @@ def base(n,title,sub):
     text(d,(70,123),title,49,INK,'serif'); text(d,(70,190),sub,23,MUTED)
     d.line((70,688,1200,688),fill=LINE,width=2)
     text(d,(70,711),'FREE · NO SIGN-UP · MADE FOR THE CURIOUS',14,MUTED,'mono')
-    text(d,(1200,711),'chinesename.cc.cd',16,GREEN,'mono','ra')
+    text(d,(1200,711),'www.hanziname.fun',16,GREEN,'mono','ra')
     return im,d
 def save(im,name): im.save(OUT/name,optimize=True)
 # Icon master and thumbnail.

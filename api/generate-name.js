@@ -160,7 +160,7 @@ async function callModel(body, modelOverride) {
   const response = await fetch(url, {
     method: 'POST',
     signal: AbortSignal.timeout(10000),
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}`, 'HTTP-Referer': process.env.PUBLIC_SITE_URL || 'https://chinesename.cc.cd', 'X-Title': 'Hanzi Chinese Name Generator' },
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}`, 'HTTP-Referer': process.env.PUBLIC_SITE_URL || 'https://www.hanziname.fun', 'X-Title': 'Hanzi Chinese Name Generator' },
     body: JSON.stringify({ model, temperature: 0.3, response_format: { type: 'json_object' }, max_tokens: 1200, reasoning: { enabled: false }, messages: [{ role: 'system', content: SYSTEM_PROMPT }, { role: 'user', content: promptFor(body) }] })
   });
   if (!response.ok) throw new Error(`Model request failed: ${response.status}`);

@@ -24,14 +24,14 @@
 
 ## How to call it
 
-- Open https://chinesename.cc.cd/ and submit the form. There is no public API for
+- Open https://www.hanziname.fun/ and submit the form. There is no public API for
   third-party use: the naming endpoint is same-origin and intended for this site's pages.
-- Courtesy names (字): https://chinesename.cc.cd/courtesy-name-generator/
-- English to Chinese name (converter vs naming): https://chinesename.cc.cd/english-to-chinese-name/
-- Chinese surnames (100 most common, with meanings): https://chinesename.cc.cd/chinese-surnames/
-- Bazi calculator (four pillars, calendar only, no predictions): https://chinesename.cc.cd/bazi/
-- Chinese names with meaning (16 themes, characters and pinyin): https://chinesename.cc.cd/chinese-names-with-meaning/
-- What is my Chinese name (the three routes, and why there is no single answer): https://chinesename.cc.cd/what-is-my-chinese-name/
-- Japanese names: https://chinesename.cc.cd/japanese-name-to-chinese-name/
-- What a courtesy name is: https://chinesename.cc.cd/what-is-a-chinese-courtesy-name/
-- Chinese zodiac: https://chinesename.cc.cd/chinese-zodiac/
+- Courtesy names (字): https://www.hanziname.fun/courtesy-name-generator/
+- English to Chinese name (converter vs naming): https://www.hanziname.fun/english-to-chinese-name/
+- Chinese surnames (100 most common, with meanings): https://www.hanziname.fun/chinese-surnames/
+- Bazi calculator (four pillars, calendar only, no predictions): https://www.hanziname.fun/bazi/
+- Chinese names with meaning (16 themes, characters and pinyin): https://www.hanziname.fun/chinese-names-with-meaning/
+- What is my Chinese name (the three routes, and why there is no single answer): https://www.hanziname.fun/what-is-my-chinese-name/
+- Japanese names: https://www.hanziname.fun/japanese-name-to-chinese-name/
+- What a courtesy name is: https://www.hanziname.fun/what-is-a-chinese-courtesy-name/
+- Chinese zodiac: https://www.hanziname.fun/chinese-zodiac/

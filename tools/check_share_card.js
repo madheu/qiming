@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('assert');
 const card = require('../share-card');
-global.location = { origin: 'https://chinesename.cc.cd' };
+global.location = { origin: 'https://www.hanziname.fun' };
 for (const item of [
   { name: '林知远', pinyin: 'Lín Zhīyuǎn', meaning: 'Wisdom reaching beyond the obvious.', kind: 'Chinese name' },
   { name: '含章', pinyin: 'Hán Zhāng', meaning: 'Keeping distinction within.', kind: 'Courtesy name · 字' },
